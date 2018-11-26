@@ -4,6 +4,10 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Vector2;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import ru.geekbrains.base.BaseScreen;
 
 
@@ -14,6 +18,7 @@ public class MenuScreen extends BaseScreen {
     private Vector2 touch;
     private Vector2 workVector;
     private float playerCurrentSpeed = 8f;
+    private List<Integer> currentButtonKeys = new ArrayList<Integer>();
 
     @Override
     public void show() {
@@ -35,6 +40,7 @@ public class MenuScreen extends BaseScreen {
         batch.draw(playerShip, playerPosition.x, playerPosition.y, 100, 100);
         batch.end();
         currentPlayerPosition();
+        playerImpulseMove();
     }
 
     @Override
@@ -55,6 +61,19 @@ public class MenuScreen extends BaseScreen {
         return false;
     }
 
+    @Override
+    public boolean keyUp(int keycode) {
+        int indexArray = currentButtonKeys.indexOf(keycode);
+        currentButtonKeys.remove(indexArray);
+        return false;
+    }
+
+    @Override
+    public boolean keyDown(int keycode) {
+        currentButtonKeys.add(keycode);
+        return false;
+    }
+
     private void currentPlayerPosition() {
         if (touch.equals(playerPosition)) {
             return;
@@ -68,5 +87,27 @@ public class MenuScreen extends BaseScreen {
             return;
         }
         playerPosition.add(workVector);
+    }
+
+    private void playerImpulseMove() {
+        if (currentButtonKeys.size() == 0) {
+            return;
+        }
+        Vector2 directionVector = new Vector2(0, 0);
+        if (currentButtonKeys.indexOf(19) >= 0) {
+            directionVector.add(new Vector2(0, 1));
+        }
+        if (currentButtonKeys.indexOf(20) >= 0) {
+            directionVector.add(new Vector2(0, -1));
+        }
+        if (currentButtonKeys.indexOf(21) >= 0) {
+            directionVector.add(new Vector2(-1, 0));
+        }
+        if (currentButtonKeys.indexOf(22) >= 0) {
+            directionVector.add(new Vector2(1, 0));
+        }
+        directionVector.scl(playerCurrentSpeed);
+        playerPosition.add(directionVector);
+        touch = playerPosition.cpy();
     }
 }
