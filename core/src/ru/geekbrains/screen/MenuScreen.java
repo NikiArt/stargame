@@ -13,7 +13,7 @@ public class MenuScreen extends BaseScreen {
     private Vector2 playerPosition;
     private Vector2 touch;
     private Vector2 workVector;
-    private float playerCurrentSpeed = 5f;
+    private float playerCurrentSpeed = 8f;
 
     @Override
     public void show() {
@@ -40,6 +40,7 @@ public class MenuScreen extends BaseScreen {
     @Override
     public void dispose() {
         img.dispose();
+        playerShip.dispose();
         super.dispose();
     }
 
@@ -51,8 +52,6 @@ public class MenuScreen extends BaseScreen {
         workVector.sub(playerPosition);
         workVector.nor();
         workVector.scl(playerCurrentSpeed);
-        System.out.println("touch " + touch.x + " " + touch.y);
-        System.out.println("workVector " + workVector.x + " " + workVector.y);
         return false;
     }
 
