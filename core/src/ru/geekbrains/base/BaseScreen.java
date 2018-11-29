@@ -4,14 +4,36 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Matrix3;
+import com.badlogic.gdx.math.Matrix4;
+
+import ru.geekbrains.math.MatrixUtils;
+import ru.geekbrains.math.Rect;
 
 public class BaseScreen implements Screen, InputProcessor {
     protected SpriteBatch batch;
 
+    private Rect screenBounds; // границы области рисования в пикселях
+    private Rect worldBounds; // границы проекции мировых координат
+    private Rect glBounds; // дефолтные границы проекции мир - gl
+
+    private Matrix4 worldToGl;
+    private Matrix3 screenToWorld;
+
+    private static float HIGHT_SIZE = 100f;
+
+    public BaseScreen() {
+        this.screenBounds = new Rect();
+        this.worldBounds = new Rect();
+        this.glBounds = new Rect(0,0,1f, 1f);
+        this.worldToGl = new Matrix4();
+        this.screenToWorld = new Matrix3();
+    }
 
     @Override
     public void show() {
         batch = new SpriteBatch();
+        batch.getProjectionMatrix().idt();
         Gdx.input.setInputProcessor(this);
     }
 
@@ -21,6 +43,16 @@ public class BaseScreen implements Screen, InputProcessor {
 
     @Override
     public void resize(int width, int height) {
+        screenBounds.setSize(width, height);
+        screenBounds.setLeft(0);
+        screenBounds.setBottom(0);
+
+        float aspect = width / (float) height;
+        worldBounds.setHeight(HIGHT_SIZE);
+        worldBounds.setWidth(HIGHT_SIZE*aspect);
+        MatrixUtils.calcTransitionMatrix(worldToGl, worldBounds, glBounds);
+        batch.setProjectionMatrix(worldToGl);
+        MatrixUtils.calcTransitionMatrix(screenToWorld, screenBounds, worldBounds);
     }
 
     @Override

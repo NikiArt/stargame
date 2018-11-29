@@ -19,6 +19,8 @@ public class MenuScreen extends BaseScreen {
     private Vector2 workVector;
     private float playerCurrentSpeed = 8f;
     private List<Integer> currentButtonKeys = new ArrayList<Integer>();
+    private Vector2 playerPoint;
+    private Vector2 touchPoint;
 
     @Override
     public void show() {
@@ -78,8 +80,8 @@ public class MenuScreen extends BaseScreen {
         if (touch.equals(playerPosition)) {
             return;
         }
-        Vector2 playerPoint = playerPosition.cpy().add(workVector);
-        Vector2 touchPoint = touch.cpy();
+        playerPoint = playerPosition.cpy().add(workVector);
+        touchPoint = touch.cpy();
         float newPointLength = playerPoint.sub(playerPosition).len();
         float touchPointLength = touchPoint.sub(playerPosition).len();
         if (newPointLength >= touchPointLength) {
