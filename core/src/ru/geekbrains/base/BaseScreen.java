@@ -20,7 +20,7 @@ public class BaseScreen implements Screen, InputProcessor {
     private Matrix4 worldToGl;
     private Matrix3 screenToWorld;
 
-    private static float HIGHT_SIZE = 100f;
+    private static float HEIGHT_SIZE = 100f;
 
     public BaseScreen() {
         this.screenBounds = new Rect();
@@ -48,8 +48,8 @@ public class BaseScreen implements Screen, InputProcessor {
         screenBounds.setBottom(0);
 
         float aspect = width / (float) height;
-        worldBounds.setHeight(HIGHT_SIZE);
-        worldBounds.setWidth(HIGHT_SIZE*aspect);
+        worldBounds.setHeight(HEIGHT_SIZE);
+        worldBounds.setWidth(HEIGHT_SIZE*aspect);
         MatrixUtils.calcTransitionMatrix(worldToGl, worldBounds, glBounds);
         batch.setProjectionMatrix(worldToGl);
         MatrixUtils.calcTransitionMatrix(screenToWorld, screenBounds, worldBounds);
