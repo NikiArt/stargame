@@ -17,10 +17,13 @@ public class MenuScreen extends BaseScreen {
     private Vector2 playerPosition;
     private Vector2 touch;
     private Vector2 workVector;
-    private float playerCurrentSpeed = 8f;
+    private float playerCurrentSpeed = 1f;
     private List<Integer> currentButtonKeys = new ArrayList<Integer>();
     private Vector2 playerPoint;
     private Vector2 touchPoint;
+    private static float PLAYER_SHIP_HEIGHT = 12f;
+    int iterator;
+
 
     @Override
     public void show() {
@@ -29,6 +32,8 @@ public class MenuScreen extends BaseScreen {
         playerShip = new Texture("playerShip.png");
         playerPosition = new Vector2(0, 0);
         touch = new Vector2();
+        playerPoint = new Vector2();
+        touchPoint = new Vector2();
         workVector = playerPosition.cpy();
     }
 
@@ -38,8 +43,14 @@ public class MenuScreen extends BaseScreen {
         Gdx.gl.glClearColor(1, 1, 1, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         batch.begin();
-        batch.draw(img, 0, 0);
-        batch.draw(playerShip, playerPosition.x, playerPosition.y, 100, 100);
+        batch.draw(img, (-0.5f)*super.HEIGHT_SIZE, (-0.5f)*super.HEIGHT_SIZE, super.HEIGHT_SIZE, super.HEIGHT_SIZE);
+        iterator = 1;
+        while (iterator * super.HEIGHT_SIZE < super.worldBounds.getWidth()) {
+            batch.draw(img, (-0.5f)*super.HEIGHT_SIZE + super.HEIGHT_SIZE , (-0.5f)*super.HEIGHT_SIZE, super.HEIGHT_SIZE, super.HEIGHT_SIZE);
+            batch.draw(img, (-0.5f)*super.HEIGHT_SIZE - super.HEIGHT_SIZE , (-0.5f)*super.HEIGHT_SIZE, super.HEIGHT_SIZE, super.HEIGHT_SIZE);
+            iterator ++;
+        }
+        batch.draw(playerShip, playerPosition.x, playerPosition.y, PLAYER_SHIP_HEIGHT, PLAYER_SHIP_HEIGHT);
         batch.end();
         currentPlayerPosition();
         playerImpulseMove();
@@ -55,8 +66,10 @@ public class MenuScreen extends BaseScreen {
     @Override
     public boolean touchDown(int screenX, int screenY, int pointer, int button) {
         super.touchDown(screenX, screenY, pointer, button);
-        touch.set(screenX, Gdx.graphics.getHeight() - screenY);
-        workVector = touch.cpy();
+        float worldX = super.worldBounds.getWidth()*(screenX/super.screenBounds.getWidth()) - super.worldBounds.getHalfWidth() - PLAYER_SHIP_HEIGHT/2;
+        float worldY = super.worldBounds.getHeight()*((Gdx.graphics.getHeight() - screenY)/super.screenBounds.getHeight()) - super.worldBounds.getHalfHeight() - PLAYER_SHIP_HEIGHT/2;
+        touch.set(worldX, worldY);
+        workVector.set(touch);
         workVector.sub(playerPosition);
         workVector.nor();
         workVector.scl(playerCurrentSpeed);
@@ -80,12 +93,12 @@ public class MenuScreen extends BaseScreen {
         if (touch.equals(playerPosition)) {
             return;
         }
-        playerPoint = playerPosition.cpy().add(workVector);
-        touchPoint = touch.cpy();
+        playerPoint.set(playerPosition).add(workVector);
+        touchPoint.set(touch);
         float newPointLength = playerPoint.sub(playerPosition).len();
         float touchPointLength = touchPoint.sub(playerPosition).len();
         if (newPointLength >= touchPointLength) {
-            playerPosition = touch.cpy();
+            playerPosition.set(touch);
             return;
         }
         playerPosition.add(workVector);

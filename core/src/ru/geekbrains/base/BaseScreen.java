@@ -13,14 +13,15 @@ import ru.geekbrains.math.Rect;
 public class BaseScreen implements Screen, InputProcessor {
     protected SpriteBatch batch;
 
-    private Rect screenBounds; // границы области рисования в пикселях
-    private Rect worldBounds; // границы проекции мировых координат
-    private Rect glBounds; // дефолтные границы проекции мир - gl
+    protected Rect screenBounds; // границы области рисования в пикселях
+    protected Rect worldBounds; // границы проекции мировых координат
+    protected Rect glBounds; // дефолтные границы проекции мир - gl
 
     private Matrix4 worldToGl;
     private Matrix3 screenToWorld;
 
-    private static float HEIGHT_SIZE = 100f;
+    protected final float HEIGHT_SIZE = 100f;
+    protected float aspect = 1f;
 
     public BaseScreen() {
         this.screenBounds = new Rect();
@@ -47,7 +48,7 @@ public class BaseScreen implements Screen, InputProcessor {
         screenBounds.setLeft(0);
         screenBounds.setBottom(0);
 
-        float aspect = width / (float) height;
+        aspect = width / (float) height;
         worldBounds.setHeight(HEIGHT_SIZE);
         worldBounds.setWidth(HEIGHT_SIZE*aspect);
         MatrixUtils.calcTransitionMatrix(worldToGl, worldBounds, glBounds);
