@@ -1,5 +1,6 @@
 package ru.geekbrains.base;
 
+import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.Screen;
@@ -22,8 +23,10 @@ public class BaseScreen implements Screen, InputProcessor {
 
     protected final float HEIGHT_SIZE = 1f;
     protected float aspect = 1f;
+    protected Game game;
 
-    public BaseScreen() {
+    public BaseScreen(Game game) {
+        this.game = game;
         this.screenBounds = new Rect();
         this.worldBounds = new Rect();
         this.glBounds = new Rect(0,0,1f, 1f);
