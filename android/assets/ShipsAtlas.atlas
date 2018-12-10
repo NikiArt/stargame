@@ -1,0 +1,76 @@
+
+ShipsAtlas.png
+size: 1024,1024
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+EnemyShot
+  rotate: false
+  xy: 776, 808
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+Shot
+  rotate: false
+  xy: 2, 2
+  size: 32, 64
+  orig: 32, 64
+  offset: 0, 0
+  index: -1
+enemyShipOne
+  rotate: false
+  xy: 518, 584
+  size: 256, 256
+  orig: 256, 256
+  offset: 0, 0
+  index: -1
+enemyShipOneDmg
+  rotate: false
+  xy: 260, 68
+  size: 256, 256
+  orig: 256, 256
+  offset: 0, 0
+  index: -1
+enemyShipThree
+  rotate: false
+  xy: 260, 326
+  size: 256, 256
+  orig: 256, 256
+  offset: 0, 0
+  index: -1
+enemyShipThreeDmg
+  rotate: false
+  xy: 2, 326
+  size: 256, 256
+  orig: 256, 256
+  offset: 0, 0
+  index: -1
+enemyShipTwo
+  rotate: false
+  xy: 260, 584
+  size: 256, 256
+  orig: 256, 256
+  offset: 0, 0
+  index: -1
+enemyShipTwoDmg
+  rotate: false
+  xy: 2, 68
+  size: 256, 256
+  orig: 256, 256
+  offset: 0, 0
+  index: -1
+playerShip
+  rotate: false
+  xy: 518, 326
+  size: 256, 256
+  orig: 256, 256
+  offset: 0, 0
+  index: -1
+playerShipDmg
+  rotate: false
+  xy: 2, 584
+  size: 256, 256
+  orig: 256, 256
+  offset: 0, 0
+  index: -1
