@@ -7,6 +7,7 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Matrix3;
 import com.badlogic.gdx.math.Matrix4;
+import com.badlogic.gdx.math.Vector2;
 
 import ru.geekbrains.math.MatrixUtils;
 import ru.geekbrains.math.Rect;
@@ -20,6 +21,7 @@ public class BaseScreen implements Screen, InputProcessor {
 
     private Matrix4 worldToGl;
     private Matrix3 screenToWorld;
+    private Vector2 touch = new Vector2();
 
     protected final float HEIGHT_SIZE = 1f;
     protected float aspect = 1f;
@@ -99,14 +101,29 @@ public class BaseScreen implements Screen, InputProcessor {
 
     @Override
     public boolean touchDown(int screenX, int screenY, int pointer, int button) {
+        System.out.println("touchDown screenX = " + screenX + " screenY = " + screenY);
+        touch.set(screenX, screenBounds.getHeight() - screenY).mul(screenToWorld);
+        touchDown(touch, pointer);
+        return false;
+    }
+
+    public boolean touchDown(Vector2 touch, int pointer) {
+        System.out.println("touchDown touch.x = " + touch.x + " touch.y = " + touch.y);
         return false;
     }
 
     @Override
     public boolean touchUp(int screenX, int screenY, int pointer, int button) {
+        System.out.println("touchUp screenX = " + screenX + " screenY = " + screenY);
+        touch.set(screenX, screenBounds.getHeight() - screenY).mul(screenToWorld);
+        touchUp(touch, pointer);
         return false;
     }
 
+    public boolean touchUp(Vector2 touch, int pointer) {
+        System.out.println("touchUp touch.x = " + touch.x + " touch.y = " + touch.y);
+        return false;
+    }
     @Override
     public boolean touchDragged(int screenX, int screenY, int pointer) {
         return false;

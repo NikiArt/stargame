@@ -2,6 +2,7 @@ package ru.geekbrains.base;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.Vector2;
 
 import ru.geekbrains.math.Rect;
 import ru.geekbrains.utils.Regions;
@@ -46,6 +47,14 @@ public abstract class Sprite extends Rect {
 
     public void update(float delta) {
 
+    }
+
+    public boolean touchDown(Vector2 touch, int pointer) {
+        return false;
+    }
+
+    public boolean touchUp(Vector2 touch, int pointer) {
+        return false;
     }
 
     public void resize(Rect worldBounds) {
