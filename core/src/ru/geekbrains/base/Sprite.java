@@ -4,6 +4,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 import ru.geekbrains.math.Rect;
+import ru.geekbrains.utils.Regions;
 
 public abstract class Sprite extends Rect {
 
@@ -11,11 +12,20 @@ public abstract class Sprite extends Rect {
     protected float scale = 1f;
     protected TextureRegion[] regions;
     protected int frame;
+    private boolean isDestroyed;
+
+    public Sprite () {
+    }
 
     public Sprite (TextureRegion region) {
         regions = new TextureRegion[1];
         regions[0] = region;
     }
+
+    public Sprite(TextureRegion region, int rows, int cols, int frames) {
+        regions = Regions.split(region, rows, cols, frames);
+    }
+
 
     public void draw(SpriteBatch batch) {
         batch.draw(
@@ -53,4 +63,20 @@ public abstract class Sprite extends Rect {
     public float getAngle(float angle) { return angle; }
 
     public void setAngle(float angle) { this.angle = angle; }
+
+    public float getScale() {
+        return scale;
+    }
+
+    public void setScale(float scale) {
+        this.scale = scale;
+    }
+
+    public boolean isDestroyed() {
+        return isDestroyed;
+    }
+
+    public void setDestroyed(boolean destroyed) {
+        isDestroyed = destroyed;
+    }
 }
