@@ -4,7 +4,7 @@ import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 
-import ru.geekbrains.Pool.BulletPool;
+import ru.geekbrains.pool.BulletPool;
 import ru.geekbrains.math.Rect;
 import ru.geekbrains.sprite.Bullet;
 

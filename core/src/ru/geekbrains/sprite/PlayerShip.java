@@ -6,9 +6,8 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 
-import ru.geekbrains.Pool.BulletPool;
+import ru.geekbrains.pool.BulletPool;
 import ru.geekbrains.base.Ship;
-import ru.geekbrains.base.Sprite;
 import ru.geekbrains.math.Rect;
 
 public class PlayerShip extends Ship {
