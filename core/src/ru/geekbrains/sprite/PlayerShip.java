@@ -27,9 +27,9 @@ public class PlayerShip extends Ship {
         regions[1] = new TextureRegion(atlas.findRegion("playerShipDmg"));
         setHeightProportion(0.15f);
         this.bulletPool = bulletPool;
-        this.reloadInterval = 0.2f;
+        this.reloadInterval = 0.3f;
         this.bulletRegion = atlas.findRegion("Shot");
-        this.bulletHeight = 0.01f;
+        this.bulletHeight = 0.05f;
         this.bulletV.set(0, 0.5f);
         this.bulletDamage = 1;
         this.hp = 100;
