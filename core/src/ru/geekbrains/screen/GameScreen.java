@@ -20,6 +20,8 @@ import ru.geekbrains.pool.ExplosionPool;
 import ru.geekbrains.sprite.Background;
 import ru.geekbrains.sprite.Bullet;
 import ru.geekbrains.sprite.Enemy;
+import ru.geekbrains.sprite.GameOverTitle;
+import ru.geekbrains.sprite.NewGameButton;
 import ru.geekbrains.sprite.PlayerShip;
 import ru.geekbrains.sprite.Smoke;
 import ru.geekbrains.utils.EnemiesEmitter;
@@ -46,6 +48,9 @@ public class GameScreen extends BaseScreen {
     private Sound explosionSound;
     private Sound playerShipShootSound;
 
+    private NewGameButton newGameButton;
+    private GameOverTitle gameOverTitle;
+
     private static final int SMOKE_COUNT = 50;
 
     public GameScreen(Game game) {
@@ -59,6 +64,8 @@ public class GameScreen extends BaseScreen {
         textureAtlas = new TextureAtlas("menuAtlas.atlas");
         shipsAtlas = new TextureAtlas("ShipsAtlas.atlas");
         explosionAtlas = new TextureAtlas("explosion.atlas");
+        newGameButton = new NewGameButton(textureAtlas);
+        gameOverTitle = new GameOverTitle(textureAtlas);
         img = new Texture("background.png");
         background = new Background(new TextureRegion(img));
         smoke = new Smoke[SMOKE_COUNT];
@@ -166,7 +173,8 @@ public class GameScreen extends BaseScreen {
         enemyPool.drawActiveSprites(batch);
         explosionPool.drawActiveSprites(batch);
         } else {
-
+            gameOverTitle.draw(batch);
+            newGameButton.draw(batch);
         }
         batch.end();
     }
@@ -190,12 +198,19 @@ public class GameScreen extends BaseScreen {
     @Override
     public boolean touchDown(Vector2 touch, int pointer) {
         playerShip.touchDown(touch, pointer);
+        newGameButton.touchDown(touch, pointer);
         return super.touchDown(touch, pointer);
     }
 
     @Override
     public boolean touchUp(Vector2 touch, int pointer) {
         playerShip.touchUp(touch, pointer);
+        if (newGameButton.touchUp(touch, pointer)) {
+            playerShip.setHp(20);
+            playerShip.setDestroyed(false);
+            enemyPool.dispose();
+            bulletPool.dispose();
+        }
         return super.touchUp(touch, pointer);
     }
 

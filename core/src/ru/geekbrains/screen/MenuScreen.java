@@ -112,14 +112,14 @@ public class MenuScreen extends BaseScreen {
         return false;
     }
 
-        @Override
-        public boolean touchUp(int screenX, int screenY, int pointer, int button) {
-            playButton.pressButton(false);
-            exitButton.pressButton(false);
-            if (exitButtonPressed) Gdx.app.exit();
-            if (playButtonPressed) game.setScreen(new GameScreen(game));
-            return false;
-        }
+    @Override
+    public boolean touchUp(int screenX, int screenY, int pointer, int button) {
+        playButton.pressButton(false);
+        exitButton.pressButton(false);
+        if (exitButtonPressed) Gdx.app.exit();
+        if (playButtonPressed) game.setScreen(new GameScreen(game));
+        return false;
+    }
 
 
 
