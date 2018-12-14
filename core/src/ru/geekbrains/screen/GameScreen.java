@@ -42,9 +42,9 @@ public class GameScreen extends BaseScreen {
     private EnemiesEmitter enemiesEmitter;
 
     private Music music;
-    private Sound mainShipShootSound;
     private Sound enemyShipShootSound;
     private Sound explosionSound;
+    private Sound playerShipShootSound;
 
     private static final int SMOKE_COUNT = 50;
 
@@ -67,12 +67,12 @@ public class GameScreen extends BaseScreen {
         }
         bulletPool = new BulletPool();
 
-        //explosionSound = Gdx.audio.newSound(Gdx.files.internal("sounds/explosion.wav"));
+        explosionSound = Gdx.audio.newSound(Gdx.files.internal("sounds/explosion.wav"));
         explosionPool = new ExplosionPool(explosionAtlas, explosionSound);
-        //playerShipShootSound = Gdx.audio.newSound(Gdx.files.internal("sounds/laser.wav"));
-        playerShip = new PlayerShip(shipsAtlas, bulletPool, explosionPool, mainShipShootSound);
+        playerShipShootSound = Gdx.audio.newSound(Gdx.files.internal("sounds/laser.wav"));
+        playerShip = new PlayerShip(shipsAtlas, bulletPool, explosionPool, playerShipShootSound);
         playerShip.resize(worldBounds);
-        //enemyShipShootSound = Gdx.audio.newSound(Gdx.files.internal("sounds/bullet.wav"));
+        enemyShipShootSound = Gdx.audio.newSound(Gdx.files.internal("sounds/bullet.wav"));
         enemyPool = new EnemyPool(bulletPool, explosionPool, playerShip, worldBounds, enemyShipShootSound);
         enemiesEmitter = new EnemiesEmitter(worldBounds, enemyPool, shipsAtlas);
     }
