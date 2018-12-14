@@ -1,4 +1,4 @@
-package ru.geekbrains.Pool;
+package ru.geekbrains.pool;
 
 import ru.geekbrains.base.SpritesPool;
 import ru.geekbrains.sprite.Bullet;
