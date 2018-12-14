@@ -8,8 +8,8 @@ import ru.geekbrains.math.Rect;
 public class ExitButton extends Sprite {
 
     private Rect worldBounds;
-    private static float PRESSED = 0.14f;
-    private static float RELEASED = 0.15f;
+    private static float PRESSED = 0.09f;
+    private static float RELEASED = 0.1f;
 
     public ExitButton(TextureAtlas atlas) {
         super(atlas.findRegion("exitButton"));

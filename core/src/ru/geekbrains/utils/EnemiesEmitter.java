@@ -11,21 +11,21 @@ import ru.geekbrains.sprite.Enemy;
 
 public class EnemiesEmitter {
 
-    private static final float ENEMY_SMALL_HEIGHT = 0.15f;
+    private static final float ENEMY_SMALL_HEIGHT = 0.12f;
     private static final float ENEMY_SMALL_BULLET_HEIGHT = 0.05f;
     private static final float ENEMY_SMALL_BULLET_VY = -0.3f;
     private static final int ENEMY_SMALL_BULLET_DAMAGE = 1;
     private static final float ENEMY_SMALL_RELOAD_INTERVAL = 1f;
     private static final int ENEMY_SMALL_HP = 1;
 
-    private static final float ENEMY_MEDIUM_HEIGHT = 0.2f;
+    private static final float ENEMY_MEDIUM_HEIGHT = 0.16f;
     private static final float ENEMY_MEDIUM_BULLET_HEIGHT = 0.07f;
     private static final float ENEMY_MEDIUM_BULLET_VY = -0.25f;
     private static final int ENEMY_MEDIUM_BULLET_DAMAGE = 5;
     private static final float ENEMY_MEDIUM_RELOAD_INTERVAL = 2f;
     private static final int ENEMY_MEDIUM_HP = 5;
 
-    private static final float ENEMY_BIG_HEIGHT = 0.25f;
+    private static final float ENEMY_BIG_HEIGHT = 0.19f;
     private static final float ENEMY_BIG_BULLET_HEIGHT = 0.1f;
     private static final float ENEMY_BIG_BULLET_VY = -0.25f;
     private static final int ENEMY_BIG_BULLET_DAMAGE = 10;

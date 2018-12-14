@@ -11,7 +11,7 @@ public class GameOverTitle  extends Sprite {
 
     public GameOverTitle(TextureAtlas atlas) {
         super(atlas.findRegion("gameOverTitle"));
-        setHeightProportion(0.14f);
+        setHeightProportion(0.08f);
         setTop(getHalfHeight() + 0.2f);
     }
 

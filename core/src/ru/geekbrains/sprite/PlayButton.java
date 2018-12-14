@@ -12,8 +12,8 @@ import ru.geekbrains.math.Rnd;
 public class PlayButton extends Sprite {
 
     private Rect worldBounds;
-    private static float PRESSED = 0.14f;
-    private static float RELEASED = 0.15f;
+    private static float PRESSED = 0.08f;
+    private static float RELEASED = 0.1f;
 
     public PlayButton(TextureAtlas atlas) {
         super(atlas.findRegion("playButton"));

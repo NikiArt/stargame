@@ -51,7 +51,7 @@ public class GameScreen extends BaseScreen {
     private NewGameButton newGameButton;
     private GameOverTitle gameOverTitle;
 
-    private static final int SMOKE_COUNT = 50;
+    private static final int SMOKE_COUNT = 30;
 
     public GameScreen(Game game) {
         super(game);

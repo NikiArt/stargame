@@ -9,8 +9,8 @@ import ru.geekbrains.math.Rect;
 public class NewGameButton extends Sprite {
 
     private Rect worldBounds;
-    private static float PRESSED = 0.14f;
-    private static float RELEASED = 0.15f;
+    private static float PRESSED = 0.08f;
+    private static float RELEASED = 0.1f;
 
     public NewGameButton(TextureAtlas atlas) {
         super(atlas.findRegion("newGameButton"));
