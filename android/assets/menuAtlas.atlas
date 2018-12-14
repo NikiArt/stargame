@@ -1,26 +1,40 @@
 
 menuAtlas.png
-size: 512,256
+size: 1024,256
 format: RGBA8888
 filter: Nearest,Nearest
 repeat: none
 exitButton
   rotate: false
-  xy: 2, 2
+  xy: 377, 2
   size: 255, 112
   orig: 255, 112
   offset: 0, 0
   index: -1
+gameOverTitle
+  rotate: false
+  xy: 2, 131
+  size: 512, 97
+  orig: 512, 97
+  offset: 0, 0
+  index: -1
+newGameButton
+  rotate: false
+  xy: 2, 17
+  size: 373, 112
+  orig: 373, 112
+  offset: 0, 0
+  index: -1
 playButton
   rotate: false
-  xy: 2, 116
+  xy: 516, 116
   size: 255, 112
   orig: 255, 112
   offset: 0, 0
   index: -1
 smoke
   rotate: false
-  xy: 259, 57
+  xy: 773, 57
   size: 171, 171
   orig: 171, 171
   offset: 0, 0
