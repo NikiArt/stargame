@@ -34,7 +34,7 @@ public class PlayerShip extends Ship {
         this.bulletHeight = 0.05f;
         this.bulletV.set(0, 0.5f);
         this.bulletDamage = 1;
-        this.hp = 100;
+        this.hp = 20;
     }
 
     @Override

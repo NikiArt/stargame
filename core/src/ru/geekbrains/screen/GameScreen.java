@@ -141,11 +141,14 @@ public class GameScreen extends BaseScreen {
         if (!playerShip.isDestroyed()) {
             playerShip.update(delta);
             playerShip.resize(worldBounds);
-        }
+
         bulletPool.updateActiveSprites(delta);
         enemyPool.updateActiveSprites(delta);
         explosionPool.updateActiveSprites(delta);
         enemiesEmitter.generate(delta);
+        } else {
+
+        }
     }
 
     public void draw() {
@@ -158,10 +161,13 @@ public class GameScreen extends BaseScreen {
         }
         if (!playerShip.isDestroyed()) {
             playerShip.draw(batch);
-        }
+
         bulletPool.drawActiveSprites(batch);
         enemyPool.drawActiveSprites(batch);
         explosionPool.drawActiveSprites(batch);
+        } else {
+
+        }
         batch.end();
     }
 

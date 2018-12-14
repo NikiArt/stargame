@@ -75,6 +75,7 @@ public class Ship extends Sprite {
         }
         damageAnimateTimer = 0f;
         frame = 1;
+        System.out.println(hp);
     }
 
     public int getHp() {
