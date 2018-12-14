@@ -58,13 +58,13 @@ public class Ship extends Sprite {
 
     public void boom() {
         Explosion explosion = explosionPool.obtain();
-        explosion.set(getHeight(), pos);
+        explosion.set(getHeight()+0.2f, pos);
     }
 
     public void shoot() {
         Bullet bullet = bulletPool.obtain();
         bullet.set(this, bulletRegion ,pos, bulletV, bulletHeight, worldBounds, bulletDamage);
-        shootSound.play();
+        shootSound.play(0.5f);
     }
 
     public void damage(int damage) {

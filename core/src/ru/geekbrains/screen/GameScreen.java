@@ -74,6 +74,9 @@ public class GameScreen extends BaseScreen {
         }
         bulletPool = new BulletPool();
 
+        music = Gdx.audio.newMusic(Gdx.files.internal("sounds/background.mp3"));
+        music.setLooping(true);
+        music.play();
         explosionSound = Gdx.audio.newSound(Gdx.files.internal("sounds/explosion.wav"));
         explosionPool = new ExplosionPool(explosionAtlas, explosionSound);
         playerShipShootSound = Gdx.audio.newSound(Gdx.files.internal("sounds/laser.wav"));
@@ -153,8 +156,6 @@ public class GameScreen extends BaseScreen {
         enemyPool.updateActiveSprites(delta);
         explosionPool.updateActiveSprites(delta);
         enemiesEmitter.generate(delta);
-        } else {
-
         }
     }
 
@@ -205,7 +206,7 @@ public class GameScreen extends BaseScreen {
     @Override
     public boolean touchUp(Vector2 touch, int pointer) {
         playerShip.touchUp(touch, pointer);
-        if (newGameButton.touchUp(touch, pointer)) {
+        if (playerShip.isDestroyed() && newGameButton.touchUp(touch, pointer)) {
             playerShip.setHp(20);
             playerShip.setDestroyed(false);
             enemyPool.dispose();
