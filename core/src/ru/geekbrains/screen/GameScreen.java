@@ -174,9 +174,9 @@ public class GameScreen extends BaseScreen {
 
         bulletPool.updateActiveSprites(delta);
         enemyPool.updateActiveSprites(delta);
-        explosionPool.updateActiveSprites(delta);
         enemiesEmitter.generate(delta, frags);
         }
+        explosionPool.updateActiveSprites(delta);
     }
 
     public void draw() {
@@ -192,12 +192,12 @@ public class GameScreen extends BaseScreen {
 
         bulletPool.drawActiveSprites(batch);
         enemyPool.drawActiveSprites(batch);
-        explosionPool.drawActiveSprites(batch);
         printInfo();
         } else {
             gameOverTitle.draw(batch);
             newGameButton.draw(batch);
         }
+        explosionPool.drawActiveSprites(batch);
         batch.end();
     }
 
