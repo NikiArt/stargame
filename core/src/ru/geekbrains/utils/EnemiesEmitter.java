@@ -21,14 +21,14 @@ public class EnemiesEmitter {
     private static final float ENEMY_MEDIUM_HEIGHT = 0.16f;
     private static final float ENEMY_MEDIUM_BULLET_HEIGHT = 0.07f;
     private static final float ENEMY_MEDIUM_BULLET_VY = -0.25f;
-    private static final int ENEMY_MEDIUM_BULLET_DAMAGE = 5;
+    private static final int ENEMY_MEDIUM_BULLET_DAMAGE = 3;
     private static final float ENEMY_MEDIUM_RELOAD_INTERVAL = 2f;
     private static final int ENEMY_MEDIUM_HP = 5;
 
     private static final float ENEMY_BIG_HEIGHT = 0.19f;
     private static final float ENEMY_BIG_BULLET_HEIGHT = 0.1f;
     private static final float ENEMY_BIG_BULLET_VY = -0.25f;
-    private static final int ENEMY_BIG_BULLET_DAMAGE = 10;
+    private static final int ENEMY_BIG_BULLET_DAMAGE = 5;
     private static final float ENEMY_BIG_RELOAD_INTERVAL = 6f;
     private static final int ENEMY_BIG_HP = 10;
 
@@ -36,6 +36,7 @@ public class EnemiesEmitter {
 
 
     private float generateInterval = 4f;
+    private float curentGenerateInterval = generateInterval;
     private float generateTimer;
 
     private TextureRegion[] enemySmallRegion;
@@ -49,6 +50,8 @@ public class EnemiesEmitter {
     private TextureRegion bulletRegion;
 
     private EnemyPool enemyPool;
+
+    private int level;
 
     public EnemiesEmitter(Rect worldBounds, EnemyPool enemyPool, TextureAtlas atlas) {
         this.worldBounds = worldBounds;
@@ -68,9 +71,10 @@ public class EnemiesEmitter {
         this.bulletRegion = atlas.findRegion("EnemyShot");
     }
 
-    public void generate(float delta) {
+    public void generate(float delta, int frags) {
+        level = frags / 10 + 1;
         generateTimer += delta;
-        if (generateTimer >= generateInterval) {
+        if (generateTimer >= curentGenerateInterval) {
             generateTimer = 0f;
             Enemy enemy = enemyPool.obtain();
             float type = (float) Math.random();
@@ -81,10 +85,10 @@ public class EnemiesEmitter {
                         bulletRegion,
                         ENEMY_SMALL_BULLET_HEIGHT,
                         ENEMY_SMALL_BULLET_VY,
-                        ENEMY_SMALL_BULLET_DAMAGE,
-                        ENEMY_SMALL_RELOAD_INTERVAL,
+                        ENEMY_SMALL_BULLET_DAMAGE + level,
+                        ENEMY_SMALL_RELOAD_INTERVAL ,
                         ENEMY_SMALL_HEIGHT,
-                        ENEMY_SMALL_HP
+                        ENEMY_SMALL_HP * level
                 );
             } else if (type < 0.9f) {
                 enemy.set(
@@ -94,9 +98,9 @@ public class EnemiesEmitter {
                         ENEMY_MEDIUM_BULLET_HEIGHT,
                         ENEMY_MEDIUM_BULLET_VY,
                         ENEMY_MEDIUM_BULLET_DAMAGE,
-                        ENEMY_MEDIUM_RELOAD_INTERVAL,
+                        ENEMY_MEDIUM_RELOAD_INTERVAL - (level * 0.1f),
                         ENEMY_MEDIUM_HEIGHT,
-                        ENEMY_MEDIUM_HP
+                        ENEMY_MEDIUM_HP + level
                 );
             } else {
                 enemy.set(
@@ -105,14 +109,23 @@ public class EnemiesEmitter {
                         bulletRegion,
                         ENEMY_BIG_BULLET_HEIGHT,
                         ENEMY_BIG_BULLET_VY,
-                        ENEMY_BIG_BULLET_DAMAGE,
-                        ENEMY_BIG_RELOAD_INTERVAL,
+                        ENEMY_BIG_BULLET_DAMAGE + level,
+                        ENEMY_BIG_RELOAD_INTERVAL - (level * 0.3f),
                         ENEMY_BIG_HEIGHT,
-                        ENEMY_BIG_HP
+                        ENEMY_BIG_HP + level
                 );
             }
             enemy.pos.x = Rnd.nextFloat(worldBounds.getLeft() + enemy.getHalfWidth(), worldBounds.getRight() - enemy.getHalfWidth());
             enemy.setBottom(worldBounds.getTop());
         }
+        curentGenerateInterval = (generateInterval > 1f) ? (generateInterval - level * 0.3f) : 1;
+    }
+
+    public void setToNewGame() {
+        level = 1;
+    }
+
+    public int getLevel() {
+        return level;
     }
 }
