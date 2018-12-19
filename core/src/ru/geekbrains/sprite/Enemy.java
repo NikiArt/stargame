@@ -1,32 +1,57 @@
 package ru.geekbrains.sprite;
 
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 
 import ru.geekbrains.base.Ship;
 import ru.geekbrains.math.Rect;
 import ru.geekbrains.pool.BulletPool;
+import ru.geekbrains.pool.ExplosionPool;
 
 public class Enemy extends Ship {
 
+    private enum State {DESCENT, FIGHT}
+
     private PlayerShip playerShip;
-    private Rect worldBounds;
+  //  private Rect worldBounds;
 
     private Vector2 v0 = new Vector2();
+    private Vector2 descentV = new Vector2(0, -0.15f);
 
-    public Enemy(BulletPool bulletPool, PlayerShip playerShip, Rect worldBounds) {
+    private State state;
+
+    public Enemy(BulletPool bulletPool, ExplosionPool explosionPool, PlayerShip playerShip, Rect worldBounds, Sound shootSound) {
         this.bulletPool = bulletPool;
+        this.explosionPool = explosionPool;
         this.playerShip = playerShip;
         this.worldBounds = worldBounds;
         this.v.set(v0);
+        this.shootSound = shootSound;
     }
 
     @Override
     public void update(float delta) {
         super.update(delta);
         pos.mulAdd(v, delta);
-        if (getBottom() <= worldBounds.getBottom()) {
-            this.setDestroyed(true);
+        switch (state) {
+            case DESCENT:
+                if (getTop() <= worldBounds.getTop()) {
+                    v.set(v0);
+                    state = State.FIGHT;
+                }
+                break;
+            case FIGHT:
+                reloadTimer += delta;
+                if (reloadTimer >= reloadInterval) {
+                    reloadTimer = 0f;
+                    shoot();
+                }
+                if (getBottom() <= worldBounds.getBottom()) {
+                    this.setDestroyed(true);
+                    boom();
+                }
+                break;
         }
     }
 
@@ -51,6 +76,14 @@ public class Enemy extends Ship {
         this.hp = hp;
         setHeightProportion(height);
         reloadTimer = reloadInterval;
-        v.set(v0);
+        v.set(descentV);
+        state = State.DESCENT;
+    }
+
+    public boolean isBulletCollision(Rect bullet) {
+        return !(bullet.getRight() < getLeft()
+                || bullet.getLeft() > getRight()
+                || bullet.getBottom() > getTop()
+                || bullet.getTop() < pos.y);
     }
 }

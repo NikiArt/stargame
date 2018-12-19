@@ -15,7 +15,7 @@ public class Smoke extends Sprite {
     public Smoke(TextureAtlas atlas) {
         super(atlas.findRegion("smoke"));
         setHeightProportion(0.2f);
-        speed.set(Rnd.nextFloat(-0.01f, 0.01f), Rnd.nextFloat(-1f, -0.7f));
+        speed.set(Rnd.nextFloat(-0.01f, 0.01f), Rnd.nextFloat(-0.5f, -0.1f));
     }
 
     @Override

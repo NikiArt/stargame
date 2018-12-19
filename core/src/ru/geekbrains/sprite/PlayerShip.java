@@ -9,6 +9,7 @@ import com.badlogic.gdx.math.Vector2;
 import ru.geekbrains.pool.BulletPool;
 import ru.geekbrains.base.Ship;
 import ru.geekbrains.math.Rect;
+import ru.geekbrains.pool.ExplosionPool;
 
 public class PlayerShip extends Ship {
 
@@ -22,17 +23,18 @@ public class PlayerShip extends Ship {
     private int leftPointer = INVALID_POINTER;
     private int rightPointer = INVALID_POINTER;
 
-    public PlayerShip(TextureAtlas atlas, BulletPool bulletPool, Sound sound) {
+    public PlayerShip(TextureAtlas atlas, BulletPool bulletPool, ExplosionPool explosionPool, Sound sound) {
         super(atlas.findRegion("playerShip"), 1, 1, 2, sound);
         regions[1] = new TextureRegion(atlas.findRegion("playerShipDmg"));
-        setHeightProportion(0.15f);
+        setHeightProportion(0.12f);
         this.bulletPool = bulletPool;
+        this.explosionPool = explosionPool;
         this.reloadInterval = 0.3f;
         this.bulletRegion = atlas.findRegion("Shot");
-        this.bulletHeight = 0.05f;
+        this.bulletHeight = 0.04f;
         this.bulletV.set(0, 0.5f);
         this.bulletDamage = 1;
-        this.hp = 100;
+        this.hp = 20;
     }
 
     @Override
@@ -145,6 +147,13 @@ public class PlayerShip extends Ship {
 
     private void stop() {
         v.setZero();
+    }
+
+    public boolean isBulletCollision(Rect bullet) {
+        return !(bullet.getRight() < getLeft()
+                || bullet.getLeft() > getRight()
+                || bullet.getBottom() > pos.y
+                || bullet.getTop() < getBottom());
     }
 
 }
